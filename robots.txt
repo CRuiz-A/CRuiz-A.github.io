@@ -1,0 +1,4 @@
+Sitemap: https://cruiz-a.github.io/pages/sitemap.xml
+
+User-agent: *
+Disallow:
