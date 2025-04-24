@@ -6,7 +6,7 @@ author = "Cruiz"
 mintoclevel = 2
 
 # Define el prepath si el sitio está en un subdirectorio de GitHub Pages
-prepath = "pages"
+prepath = "page"
 
 # Archivos o directorios que Franklin debe ignorar
 ignore = ["node_modules/", "__site/"]
@@ -15,7 +15,7 @@ ignore = ["node_modules/", "__site/"]
 generate_rss = true
 website_title = "CRuiz Page"
 website_descr = "Sitio web personal de CRuiz con Franklin.jl"
-website_url   = "https://cruiz-a.github.io/pages/"
+website_url   = "https://cruiz-a.github.io/page/"
 +++
 
 <!--
