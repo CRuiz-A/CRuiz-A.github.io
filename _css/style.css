@@ -7,6 +7,9 @@ body {
     padding-bottom: 3rem;
     color: rgb(var(--bs-tertiary-color-rgb));
     font-family: -apple-system, "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", Arial, sans-serif;
+    background-color: #0d1118;
+    background-image: url("https://www.transparenttextures.com/patterns/noisy.png");
+    background-blend-mode: overlay;
   }
   
   /* CUSTOMIZE THE CAROUSEL
