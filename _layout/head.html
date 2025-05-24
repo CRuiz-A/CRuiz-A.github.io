@@ -10,9 +10,42 @@
 </head>
 <body>
   {{insert nav.html}}
-  <div class="container py-3 px-3 mx-auto">
-    <div class="content-with-toc">
-            <nav class="toc">
-              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
-              <ul class="toc__menu"><li class=""><a href="#prerequisites">Prerequisites</a></li><li class=""><a href="#preparing-staticman-files">Preparing Staticman files</a></li><li><a href="#deploying-the-app">Deploying the app</a></li><li><a href="#get-a-recaptcha-key">Get a reCAPTCHA key</a></li><li><a href="#configuring-the-minimal-mistakes-jekyll-theme">Configuring the Minimal Mistakes Jekyll theme</a></li><li><a href="#to-do">To-do</a></li><li><a href="#useful-links">Useful links</a></li></ul>
-            </nav>
+</body>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const tocLinks = document.querySelectorAll(".franklin-toc a[href^='#']");
+    const sections = Array.from(tocLinks).map(link => {
+      const id = link.getAttribute("href").slice(1);
+      return document.getElementById(id);
+    }).filter(el => el !== null);
+  
+    function onScroll() {
+      const scrollPos = window.scrollY + 120; // Adjust offset to match TOC position
+  
+      let currentSection = null;
+      for (const section of sections) {
+        if (section.offsetTop <= scrollPos) {
+          currentSection = section;
+        }
+      }
+  
+      tocLinks.forEach(link => {
+        link.classList.remove("active");
+      });
+  
+      if (currentSection) {
+        const activeLink = document.querySelector(
+          `.franklin-toc a[href="#${currentSection.id}"]`
+        );
+        if (activeLink) {
+          activeLink.classList.add("active");
+        }
+      }
+    }
+  
+    window.addEventListener("scroll", onScroll);
+    onScroll(); // Run on load too
+  });
+  
+  </script>
+  

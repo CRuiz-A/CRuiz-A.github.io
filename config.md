@@ -3,7 +3,7 @@ Configuración global para Franklin.jl
 -->
 +++
 author = "Cruiz"
-mintoclevel = 2
+mintoclevel = 1
 
 # Define el prepath si el sitio está en un subdirectorio de GitHub Pages
 prepath = ""
@@ -16,6 +16,9 @@ generate_rss = true
 website_title = "CRuiz Page"
 website_descr = "Personal CRuiz Website With Franklin.jl"
 website_url   = "https://cruiz-a.github.io/"
+
+# Add Table of Contents
+toc = true
 +++
 
 <!--

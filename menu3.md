@@ -2,7 +2,9 @@
 title = "Menu 3"
 +++
 
+<div class="section-highlight">
 # Working with tags
+</div>
 
 **Example**:
 

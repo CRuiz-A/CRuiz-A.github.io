@@ -13,6 +13,7 @@
     --theme-muted-border:     #bcd0dc;    /* Borders, dividers */
     /* For rgb() usage in original code */
     --theme-tertiary-rgb:     0,0,0; /* rgb(154,184,203) = #9ab8cb */
+    --theme-primary-rgb:      1,150,226;
   }
 }
 
@@ -27,6 +28,7 @@
     --theme-border:          3, 7, 9;
     --theme-muted-border:     #345265;
     --theme-tertiary-rgb:     255,255,255;   /* rgb(52,82,101) = #345265 */
+    --theme-primary-rgb:      1,150,226;
   }
 }
 
@@ -85,8 +87,8 @@
    VARIABLES (font sizes)
 ================================================================== */
 :root {
-  --small: 14px;
-  --normal: 19px;
+  --small: 0.875rem;  /* 14px / 16px */
+  --normal: 1.1875rem; /* 19px / 16px */
 }
 
 /* ==================================================================
@@ -100,14 +102,19 @@ body {
   background-color: var(--bs-body-bg);
   background-image: url("https://www.transparenttextures.com/patterns/noisy.png");
   background-blend-mode: overlay;
+
+  /* Default horizontal padding for small screens */
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
+
 .hljs {
   background-color: var(--bs-code-bg);
   color: var(--bs-code-color);
 }
 .card {
   background-color: var(--theme-muted-bg);
-  border: 1px solid rgba(0, 0, 0, 0);;
+  border: 0.0625rem solid rgba(0, 0, 0, 0); /* 1px / 16px */
 }
 
 /* CUSTOMIZE THE CAROUSEL
@@ -164,7 +171,7 @@ body {
     line-height: 1.4;
   }
   .featurette-heading {
-    font-size: 50px;
+    font-size: 3.125rem; /* 50px / 16px */
   }
 }
 @media (min-width: 62em) {
@@ -190,7 +197,7 @@ body { counter-reset: eqnum; }
   content: "(" counter(eqnum) ")";
   position: relative;
   float: right;
-  padding-right: 5px;
+  padding-right: 0.3125rem; /* 5px / 16px */
 }
 
 .nonumber .katex-display::after {
@@ -204,15 +211,15 @@ body { counter-reset: eqnum; }
 code {
   background-color: var(--bs-code-bg);
   padding: 0.1em 0.2em;
-  border-radius: 2px;
-  font-size: 14px;
+  border-radius: 0.125rem; /* 2px / 16px */
+  font-size: var(--small);
   color: var(--bs-code-color);
 }
 
 .hljs {
-  font-size: 14px;
+  font-size: var(--small);
   line-height: 1.35em;
-  border-radius: 10px;
+  border-radius: 0.625rem; /* 10px / 16px */
 }
 
 .hljs-meta { font-weight: bold; }
@@ -221,7 +228,7 @@ code {
 
 .code-output {
   background: var(--output-bg, var(--theme-muted-bg));
-  border: 1px dashed var(--theme-muted-border);
+  border: 0.0625rem dashed var(--theme-muted-border); /* 1px / 16px */
 }
 
 .fndef-content {
@@ -232,21 +239,9 @@ code {
    FRANKLIN BASE
 ================================================================== */
 .franklin-content {
-  max-width: 800px; /* Approximate math paper width */
-  margin: 0 auto; /* Center the content block */
-}
-.franklin-content .row { display: block; }
-.franklin-content .left { float: left; margin-right: 15px; }
-.franklin-content .right { float: right; }
-.franklin-content .container img {
-  width: auto;
-  padding-left: 0;
-  border-radius: 10px;
-}
-.franklin-content .footnote {
+  max-width: 43.75rem; /* 700px */
+  margin: 0 auto; /* Default to centered */
   position: relative;
-  top: -0.5em;
-  font-size: 70%;
 }
 
 /* TYPOGRAPHY & HEADINGS
@@ -274,10 +269,10 @@ h1 a:visited, h2 a:visited, h3 a:visited, h4 a:visited, h5 a:visited {
 ================================================================== */
 .franklin-content .colbox-blue {
   background-color: var(--theme-muted-bg);
-  padding: 5px 10px;
-  margin: 5px 0 5px 5px;
-  border-radius: 0 10px 10px 0;
-  border-left: 5px solid var(--theme-primary);
+  padding: 0.3125rem 0.625rem; /* 5px 10px / 16px */
+  margin: 0.3125rem 0 0.3125rem 0.3125rem; /* 5px / 16px */
+  border-radius: 0 0.625rem 0.625rem 0; /* 10px / 16px */
+  border-left: 0.3125rem solid var(--theme-primary); /* 5px / 16px */
 }
 
 /* LINKS
@@ -309,7 +304,7 @@ h1 a:visited, h2 a:visited, h3 a:visited, h4 a:visited, h5 a:visited {
   color: var(--theme-secondary);
   text-align: center;
   margin-top: 6em;
-  border-top: 1px solid var(--theme-muted-border);
+  border-top: 0.0625rem solid var(--theme-muted-border); /* 1px / 16px */
   padding-top: 2em;
   margin-bottom: 4em;
 }
@@ -321,17 +316,17 @@ h1 a:visited, h2 a:visited, h3 a:visited, h4 a:visited, h5 a:visited {
 }
 .footer-icons li {
   display: inline-block;
-  padding: 5px 0;
+  padding: 0.3125rem 0; /* 5px / 16px */
   font-family: -apple-system, "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", Arial, sans-serif;
   font-size: 0.75em;
   text-transform: uppercase;
 }
 .footer-icons li + li::before {
   content: "";
-  padding-right: 5px;
+  padding-right: 0.3125rem; /* 5px / 16px */
 }
 .footer-icons a {
-  padding-right: 10px;
+  padding-right: 0.625rem; /* 10px / 16px */
   font-weight: bold;
   text-decoration: none;
 }
@@ -342,7 +337,7 @@ h1 a:visited, h2 a:visited, h3 a:visited, h4 a:visited, h5 a:visited {
 /* Staticman Comments Styling */
 #staticman-comments {
   margin-top: 2em;
-  border-top: 1px solid var(--theme-muted-border);
+  border-top: 0.0625rem solid var(--theme-muted-border); /* 1px / 16px */
   padding-top: 2em;
 }
 
@@ -357,10 +352,10 @@ h1 a:visited, h2 a:visited, h3 a:visited, h4 a:visited, h5 a:visited {
 }
 
 .comment {
-  border: 1px solid var(--theme-muted-border);
+  border: 0.0625rem solid var(--theme-muted-border); /* 1px / 16px */
   padding: 1em;
   margin-bottom: 1em;
-  border-radius: 5px;
+  border-radius: 0.3125rem; /* 5px / 16px */
   background-color: var(--theme-background);
 }
 
@@ -373,69 +368,269 @@ h1 a:visited, h2 a:visited, h3 a:visited, h4 a:visited, h5 a:visited {
   line-height: 1.5;
 }
 
-/* Basic TOC Styling */
+/* Basic TOC Styling (OLD - moved to franklin-toc specifics below) */
 .toc {
-  position: fixed; /* Use fixed positioning for consistent floating */
-  top: 80px; /* Adjust top distance as needed, considering the nav bar */
-  right: 20px; /* Distance from the right edge of the viewport */
-  width: 250px; /* Fixed width for TOC */
-  border: 1px solid var(--theme-muted-border);
+  position: fixed;
+  top: 5rem;
+  right: 1.25rem;
+  width: 15.625rem;
+  border: 0.0625rem solid var(--theme-muted-border);
   padding: 1em;
-  border-radius: 5px;
+  border-radius: 0.3125rem;
   background-color: var(--theme-background);
-  border: 1px solid var(--theme-muted-border);
-  padding: 1em;
-  border-radius: 5px;
+  z-index: 1000;
+  display: none;
+}
+
+/* Specific TOC styles (franklin-toc) and responsiveness */
+.franklin-toc {
+  /* MOBILE (Default up to 999px) */
+  position: static;
+  width: 100%;
+  max-height: none;
+  box-shadow: none;
+  border-radius: 0;
+  margin-top: 1em;
+  border: 0.0625rem solid var(--theme-muted-border);
+  padding: 0.75em 0.8em;
   background-color: var(--theme-background);
-  z-index: 1000; /* Increase z-index to ensure it's on top */
+  font-size: 0.9em;
+  z-index: auto;
+  display: block;
+  margin-bottom: 1.5rem;
+
+  list-style: none; /* No bullets for mobile TOC by default */
+  padding-left: 0;
+}
+.franklin-toc ul,
+.franklin-toc ol {
+  list-style: none; /* Ensure nested lists also don't have bullets on mobile */
+  padding-left: 0;
 }
 
-.content-with-toc > *:not(.toc) {
-  /* Add right padding to the body or main content wrapper to prevent content from going under the fixed TOC */
-  /* This might need adjustment based on the actual content wrapper */
+
+/* 1000px to 1199px: Body to left, TOC to right (TOC reduced width, no bullets, more separation) */
+@media (min-width: 62.5rem) and (max-width: 74.9375rem) { /* 1000px to 1199px */
+  body {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .franklin-content {
+    /* Adjusted: 100% - (TOC width + TOC right offset + content right margin) */
+    /* 100% - (12rem + 1.5rem + 2rem) = 100% - 15.5rem */
+    max-width: calc(100% - 15.5rem); /* Increased margin space */
+    margin-left: 1.5rem; /* Small margin from left edge */
+    margin-right: auto; /* Push content to left, margin-right will be overridden by calc */
+  }
+
+  .franklin-toc {
+    position: fixed;
+    top: 3.25rem;
+    right: 1.5rem;
+    width: 12rem; /* Reduced TOC width */
+    max-height: 62vh;
+    overflow-y: auto;
+    box-shadow:
+      0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.12),
+      0 0.0625rem 0.125rem rgba(0, 0, 0, 0.24);
+    border-radius: 0.5rem;
+    display: block;
+    margin-bottom: 0;
+
+    list-style: none; /* Remove bullets/numbers from main TOC list */
+    padding-left: 0;
+  }
+  .franklin-toc ul,
+  .franklin-toc ol {
+    list-style: none;
+    padding-left: 0;
+  }
 }
 
-/* Add padding to the body to account for the fixed TOC */
-body {
-  padding-right: 280px; /* TOC width + right distance + some extra space */
+/* 1200px and up: Original wide layout */
+@media (min-width: 75rem) { /* 1200px */
+  body {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .franklin-content {
+    max-width: 43.75rem;
+    margin: 0 auto; /* Centered */
+  }
+
+  .franklin-toc {
+    position: fixed;
+    top: 6.25rem;
+    right: 1.875rem;
+    width: 15rem;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow:
+      0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.12),
+      0 0.0625rem 0.125rem rgba(0, 0, 0, 0.24);
+    border-radius: 0.5rem;
+    display: block;
+    margin-bottom: 0;
+
+    /* For large desktop, assume no bullets on top level, but re-enable for nested */
+    list-style: none;
+    padding-left: 0;
+  }
+  .franklin-toc ul ul,
+  .franklin-toc ol ol {
+    list-style: auto; /* Restores default bullets/numbers for nested lists */
+    padding-left: 1.5em; /* Restore typical indentation */
+  }
 }
 
-/* Adjust the container padding to avoid double padding */
-.container {
-    padding-right: 20px !important; /* Match the right distance of the TOC */
+/* Base style for TOC links */
+.franklin-toc a {
+  display: block;
+  color: var(--theme-text);
+  text-decoration: none;
+  padding: 0.25em 0.4em;
+  margin: 0.1em 0;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s, color 0.2s;
 }
 
-.toc header h4 {
-  margin-top: 0;
+/* Indent subsections slightly */
+.franklin-toc ul ul a {
+  padding-left: 1.2em;
+  font-size: 0.88em;
+  color: var(--theme-secondary);
+}
+
+/* Hover + active states */
+.franklin-toc a:hover {
+  background-color: var(--theme-muted-bg);
+  color: var(--theme-primary);
+}
+
+.franklin-toc a.active {
+  background-color: var(--theme-primary);
+  color: white;
+  font-weight: 600;
+}
+
+
+html {
+  scroll-behavior: smooth;
+}
+h1, h2, h3, h4, h5, h6 {
+  scroll-margin-top: 4.375rem; /* 70px / 16px - Adjust based on your nav height */
+}
+
+/* ==================================================================
+   IMAGE & FLOAT STYLES
+================================================================== */
+
+/* General styling for images within franklin-content */
+.franklin-content img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0;
+  border-radius: 0.625rem;
+}
+
+/* Styling for the .left and .right container divs that wrap images */
+.franklin-content div.left,
+.franklin-content div.right {
+  display: block;
+  max-width: 50%; /* Example: Limit the width of the floated content block */
   margin-bottom: 1em;
 }
 
-.toc ul {
-  list-style: none;
-  padding: 0;
+.franklin-content div.left {
+  float: left;
+  margin-right: 1.5rem;
 }
 
-.toc li {
-  margin-bottom: 0.5em;
+.franklin-content div.right {
+  float: right;
+  margin-left: 1.5rem;
 }
 
-.toc a {
-  text-decoration: none;
-  color: var(--theme-text);
+/* The .image-box as a wrapper that can also float */
+.image-box {
+  padding: 0.625rem;
+  border: 0.0625rem solid var(--theme-muted-border);
+  border-radius: 0.3125rem;
+  margin: 1.25rem auto;
+  max-width: 37.5rem;
+  background-color: var(--theme-muted-bg);
+  display: block;
 }
 
-.toc a:hover {
-  text-decoration: underline;
+/* Ensure images *inside* the image-box fit */
+.image-box img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0;
+  border-radius: 0;
 }
 
-
-/* UTILITY LINKS
-================================================================== */
-.float-end a,
-.copyright a {
-  text-decoration: none;
+/* Floating behavior for .image-box */
+.image-box.left {
+  float: left;
+  margin-right: 1.5rem;
+  margin-bottom: 1em;
 }
 
+.image-box.right {
+  float: right;
+  margin-left: 1.5rem;
+  margin-bottom: 1em;
+}
+
+/* Clear floats after a floated image or element.
+*/
+.clear-both {
+  clear: both;
+  height: 0;
+  overflow: hidden;
+}
+
+/* Generic clearfix for parents containing floats */
+.franklin-content::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.franklin-content .row { display: block; }
+
+.franklin-content .footnote {
+  position: relative;
+  top: -0.5em;
+  font-size: 70%;
+}
+
+/* Other general container adjustments (ensure these don't conflict with franklin-content) */
+.container {
+    max-width: 1140px;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.container.main-content-flex {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  min-height: 20vh;
+  padding-right: 0 !important;
+}
+
+/* Hide the old .toc if it's not the same as .franklin-toc */
+.toc:not(.franklin-toc) {
+  display: none;
+}
 @media (prefers-color-scheme: dark) {
   .m-logo-dark-invert {
     filter: invert(1) hue-rotate(180deg);
@@ -449,4 +644,18 @@ body {
   .nav-text-invert .nav-link {
     color: black;
   }
+}
+@font-face {
+  font-family: 'Hermes'; /* This is the name you'll use to refer to this font */
+  src: url('/assets/fonts/hermes.woff2') format('woff2'); /* Path to your font file */
+  font-weight: normal; /* Assuming this file is for the regular weight */
+  font-style: normal;  /* Assuming this file is for the normal style */
+  font-display: swap;  /* Recommended for performance: prevents invisible text while loading */
+}
+/* In your _css/styles.css */
+
+.hermes-text {
+  font-family: 'Hermes', serif; /* Use Hermes, with a generic serif fallback if it suits the font style */
+  font-size: 1.5rem; /* Example: make text with this font larger */
+  color: var(--theme-primary); /* Example: give it a special color */
 }

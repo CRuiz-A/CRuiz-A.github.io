@@ -59,7 +59,9 @@ you can tune the colouring in the CSS etc via the following classes:
 * `.hljs-metas` (for `shell>`)
 * `.hljs-metap` (for `...pkg>`)
 
+<div class="section-highlight">
 ## More customisation
+</div>
 
 Franklin, by design, gives you a lot of flexibility to define how you want stuff be done, this includes doing your own parsing/processing and your own HTML generation using Julia code.
 
