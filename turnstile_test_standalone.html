@@ -4,20 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CAPTCHA Test Page - Standalone</title>
-  <script>
-    // Turnstile loading with error handling
-    (function() {
-      const script = document.createElement('script');
-      script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
-      script.async = true;
-      script.defer = true;
-      script.onerror = function() {
-        console.warn('Turnstile script failed to load');
-        document.getElementById('captcha-error').style.display = 'block';
-      };
-      document.head.appendChild(script);
-    })();
-  </script>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
   <style>
     body {
       font-family: Arial, sans-serif;

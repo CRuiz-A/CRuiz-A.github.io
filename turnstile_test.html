@@ -5,21 +5,8 @@
   <title>CAPTCHA Test Page</title>
   <!-- Franklin will automatically insert the head content here -->
   {{insert head.html}}
-  <script>
-    // Turnstile loading with error handling
-    (function() {
-      const script = document.createElement('script');
-      script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
-      script.async = true;
-      script.defer = true;
-      script.onerror = function() {
-        console.warn('Turnstile script failed to load');
-        const errorDiv = document.getElementById('captcha-error');
-        if (errorDiv) errorDiv.style.display = 'block';
-      };
-      document.head.appendChild(script);
-    })();
-  </script>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
   <style>
     .cf-turnstile {
       margin: 20px 0;
