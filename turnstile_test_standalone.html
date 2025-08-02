@@ -173,7 +173,7 @@
 
       try {
         // En un escenario real, esta URL apuntaría a tu función serverless
-        const res = await fetch('/api/validate-captcha', {
+        const res = await fetch('http://localhost:3001/api/validate-captcha', {
           method: 'POST',
           headers: { 
             'Content-Type': 'application/json',
@@ -189,13 +189,15 @@
         if (res.ok) {
             const result = await res.json();
             if (result.success) {
-                resultDiv.innerHTML = '<div class="alert alert-success">🎉 ¡CAPTCHA válido! Puedes proceder con confianza.</div>';
-                // Aquí llamarías a tu API protegida o continuarías el flujo
+                resultDiv.innerHTML = `<div class="alert alert-success"><strong>Éxito desde el API:</strong> ${result.message}</div>`;
             } else {
-                resultDiv.innerHTML = `<div class="alert alert-warning">⚠️ Validación del CAPTCHA falló: ${result.error || 'Error desconocido'}</div>`;
+                // Este caso es poco probable si el backend usa excepciones HTTP, pero se mantiene por si acaso.
+                resultDiv.innerHTML = `<div class="alert alert-warning">⚠️ Validación del CAPTCHA falló: ${result.message || 'Error desconocido'}</div>`;
             }
         } else {
-            resultDiv.innerHTML = `<div class="alert alert-danger"><strong>📋 Info de Prueba:</strong> Falló al conectar con el endpoint. Status: ${res.status}.<br>Esto muestra que la lógica del cliente está intentando la llamada correctamente.</div>`;
+            // El API devolvió un error (ej. 401 Unauthorized)
+            const errorData = await res.json(); // Leer el cuerpo del error
+            resultDiv.innerHTML = `<div class="alert alert-danger"><strong>Error desde el API:</strong> ${errorData.message || `Falló al conectar con el endpoint. Status: ${res.status}`}.</div>`;
         }
 
       } catch (error) {
