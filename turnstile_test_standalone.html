@@ -105,7 +105,7 @@
     <form id="form">
       <!-- IMPORTANTE: Reemplaza con tu site key real de Cloudflare -->
       <div class="cf-turnstile" 
-           data-sitekey="0x4AAAAAABnrVqkEqmftQpCA"
+           data-sitekey="0x4AAAAAABnyQIvR42qq5_Ed"
            data-callback="onTurnstileSuccess"
            data-expired-callback="onTurnstileExpired"
            data-error-callback="onTurnstileError"></div>
@@ -183,11 +183,11 @@
       };
 
       console.log('Intentando enviar petición a la API...');
-      console.log('URL de la Petición:', 'https://a9db4001a20e.ngrok-free.app/api/validate-captcha');
+      console.log('URL de la Petición:', 'http://localhost:3001/api/validate-captcha');
       console.log('Cuerpo de la Petición:', JSON.stringify(requestBody, null, 2));
 
       try {
-        const res = await fetch('https://a9db4001a20e.ngrok-free.app/api/validate-captcha', {
+        const res = await fetch('http://localhost:3001/api/validate-captcha', {
           method: 'POST',
           headers: { 
             'Content-Type': 'application/json',
