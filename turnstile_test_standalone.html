@@ -182,12 +182,17 @@
         timestamp: Date.now()
       };
 
+      // Detectar si estamos en desarrollo o producción
+      const apiUrl = window.location.hostname === 'localhost' 
+        ? 'http://localhost:3001/api/validate-captcha'
+        : 'https://api-cruiz.vercel.app/validate-captcha';
+
       console.log('Intentando enviar petición a la API...');
-      console.log('URL de la Petición:', 'http://localhost:3001/api/validate-captcha');
+      console.log('URL de la Petición:', apiUrl);
       console.log('Cuerpo de la Petición:', JSON.stringify(requestBody, null, 2));
 
       try {
-        const res = await fetch('http://localhost:3001/api/validate-captcha', {
+        const res = await fetch(apiUrl, {
           method: 'POST',
           headers: { 
             'Content-Type': 'application/json',

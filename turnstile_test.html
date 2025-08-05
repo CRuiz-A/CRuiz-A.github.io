@@ -9,7 +9,7 @@
 <body>
     <h1>Cloudflare Turnstile Test</h1>
     <form id="test-form">
-        <div class="cf-turnstile" data-sitekey="REEMPLAZA_CON_TU_NUEVA_CLAVE_DE_SITIO" data-callback="onTurnstileSuccess"></div>
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAABnyQIvR42qq5_Ed" data-callback="onTurnstileSuccess"></div>
         <button type="submit" disabled>Submit</button>
     </form>
 
@@ -18,12 +18,12 @@
             console.log("Turnstile success:", token);
             document.querySelector('#test-form button').disabled = false;
 
-            fetch('https://tu-dominio-de-vercel.vercel.app/api/turnstile/validate', { // <-- ¡IMPORTANTE! CAMBIA ESTA URL
+            fetch('https://api-cruiz.vercel.app/validate-captcha', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ token: token }),
+                body: JSON.stringify({ captchaToken: token, action: 'test_form', timestamp: Date.now() }),
             })
             .then(response => response.json())
             .then(data => {

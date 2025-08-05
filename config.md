@@ -19,6 +19,10 @@ website_url   = "https://cruiz-a.github.io/"
 
 # Add Table of Contents
 toc = true
+
+# Configuración de Turnstile
+turnstile_enabled = true
+turnstile_site_key = "0x4AAAAAABnyQIvR42qq5_Ed"
 +++
 
 <!--
