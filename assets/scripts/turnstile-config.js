@@ -3,12 +3,14 @@
 
 const TURNSTILE_CONFIG = {
     // Site Key público de Cloudflare Turnstile
-    // Obtén esta clave desde el dashboard de Cloudflare
-    siteKey: '0x4AAAAAABnyQIvR42qq5_Ed', // REEMPLAZA con tu Site Key real
+    // Esta es tu clave real de Cloudflare
+    siteKey: '0x4AAAAAABnyQIvR42qq5_Ed',
     
     // Endpoint de tu API backend
-    // Este debe apuntar a tu servidor NestJS
-    apiEndpoint: 'http://localhost:3001/api/validate-captcha', // REEMPLAZA con tu URL real
+    // Detecta automáticamente entre desarrollo y producción
+    apiEndpoint: window.location.hostname === 'localhost' 
+        ? 'http://localhost:3001/api/validate-captcha'
+        : 'https://api-cruiz.vercel.app/validate-captcha',
     
     // Configuraciones adicionales
     theme: 'auto', // 'light', 'dark', 'auto'
