@@ -1,1 +1,22 @@
-<!DOCTYPE html> <html lang=en > <meta charset=UTF-8 > <meta name=viewport  content="width=device-width, initial-scale=1.0"> <title>Turnstile Test</title> <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script> <h1>Cloudflare Turnstile Test</h1> <form id=test-form > <div class=cf-turnstile  data-sitekey=0x4AAAAAABnyQIvR42qq5_Ed  data-callback=onTurnstileSuccess ></div> <button type=submit  disabled>Submit</button> </form> <script> function onTurnstileSuccess(token) { console.log("Turnstile success:", token); document.querySelector('#test-form button').disabled = false; fetch('https://api-cruiz.vercel.app/validate-captcha', { method: 'POST', headers: { 'Content-Type': 'application/json', }, body: JSON.stringify({ captchaToken: token, action: 'test_form', timestamp: Date.now() }), }) .then(response => response.json()) .then(data => { console.log("Validation response:", data); if (data.success) { alert("Validation successful!"); } else { alert("Validation failed: " + JSON.stringify(data['error-codes'])); } }) .catch(error => { console.error("Error validating token:", error); alert("An error occurred during validation."); }); } </script>
+<!DOCTYPE html> <html lang=en > <meta charset=UTF-8 > <meta name=viewport  content="width=device-width, initial-scale=1.0"> <title>Turnstile Test</title> <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script> <script src="/_assets/scripts/turnstile-config.js"></script> <script src="/_assets/scripts/turnstile.js"></script> <h1>Cloudflare Turnstile Test</h1> <div class=cf-turnstile ></div> <section style="margin-top:20px;"> <button id=callApiBtn >Llamar API protegida</button> <pre id=apiResult  style="white-space:pre-wrap;background:#f7f7f7;padding:10px;border-radius:6px;"></pre>
+    </section>
+
+    <script>
+        const btn = document.getElementById('callApiBtn');
+        const out = document.getElementById('apiResult');
+
+        btn.addEventListener('click', async () => {
+            out.textContent = 'Llamando API...';
+            try {
+                // Asegurar pase de captcha (si aún no existe)
+                if (window.turnstileHandler) {
+                    await window.turnstileHandler.exchangeForCaptchaPass().catch(()=>{});
+                }
+                const res = await fetchWithCaptcha(`${TURNSTILE_CONFIG.apiBase}/`, { method: 'GET' });
+                const text = await res.text();
+                out.textContent = `Status: ${res.status}\n\n${text}`;
+            } catch (e) {
+                out.textContent = 'Error: ' + e.message;
+            }
+        });
+    </script>
