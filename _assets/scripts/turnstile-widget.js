@@ -42,8 +42,33 @@
 		fab.addEventListener('click', openPanel);
 		panel.querySelector('.turnstile-close').addEventListener('click', closePanel);
 
-		document.body.appendChild(fab);
-		document.body.appendChild(panel);
+        // Try to place inside TOC if exists
+        const toc = document.querySelector('.franklin-toc');
+        if (toc) {
+            console.log('[TurnstileWidget] injecting into TOC');
+            const tocBox = document.createElement('div');
+            tocBox.className = 'turnstile-toc';
+            const header = document.createElement('div');
+            header.className = 'turnstile-toc-header';
+            const title = document.createElement('strong');
+            title.textContent = 'Verificación';
+            const toggle = document.createElement('button');
+            toggle.className = 'toggle';
+            toggle.type = 'button';
+            toggle.textContent = 'Abrir';
+            toggle.addEventListener('click', () => {
+                if (panel.classList.contains('open')) { closePanel(); toggle.textContent='Abrir'; }
+                else { openPanel(); toggle.textContent='Cerrar'; }
+            });
+            header.appendChild(title);
+            header.appendChild(toggle);
+            tocBox.appendChild(header);
+            tocBox.appendChild(panel);
+            toc.parentNode.insertBefore(tocBox, toc.nextSibling);
+        } else {
+            document.body.appendChild(fab);
+            document.body.appendChild(panel);
+        }
 
 		if (TURNSTILE_CONFIG.widgetAutoOpen) openPanel();
 
