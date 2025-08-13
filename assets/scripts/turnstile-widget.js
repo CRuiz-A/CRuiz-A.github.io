@@ -42,9 +42,9 @@
 		fab.addEventListener('click', openPanel);
 		panel.querySelector('.turnstile-close').addEventListener('click', closePanel);
 
-        // Try to place inside TOC if exists
+        const placement = TURNSTILE_CONFIG.widgetPlacement || 'floating';
         const toc = document.querySelector('.franklin-toc');
-        if (toc) {
+        if (placement === 'toc' && toc) {
             console.log('[TurnstileWidget] injecting into TOC');
             const tocBox = document.createElement('div');
             tocBox.className = 'turnstile-toc';
