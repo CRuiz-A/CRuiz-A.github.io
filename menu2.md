@@ -17,7 +17,7 @@ turnstile_enabled = true
 
 ## Inline Turnstile demo
 
-<div class="ts-inline" data-title="Verificación rápida" data-compact="true"></div>
+{{turnstile_inline title="Verificación rápida" compact=true}}
 
 ## More markdown support
 

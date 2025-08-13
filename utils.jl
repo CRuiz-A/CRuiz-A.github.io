@@ -3,6 +3,23 @@ function hfun_bar(vname)
   return round(sqrt(val), digits=2)
 end
 
+# Inline Turnstile shortcode: {{turnstile_inline title="..." compact=true}}
+function hfun_turnstile_inline(params)
+  # params like ["title=Verificación", "compact=true"]
+  title = "Verificación rápida"
+  compact = "false"
+  for p in params
+    if occursin("title=", p)
+      title = split(p, "=", limit=2)[2]
+    elseif occursin("compact=", p)
+      compact = split(p, "=", limit=2)[2]
+    end
+  end
+  return """
+  <div class=\"ts-inline\" data-title=\"$title\" data-compact=\"$compact\"></div>
+  """
+end
+
 function hfun_m1fill(vname)
   var = vname[1]
   return pagevar("index", var)
