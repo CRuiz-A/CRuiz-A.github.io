@@ -30,6 +30,8 @@ const TURNSTILE_CONFIG = {
     widgetPlacement: 'floating', // 'floating' | 'toc'
     widgetAutoOpen: false,
     widgetOffsetY: 120, // px desde top
+    widgetStyle: 'slide-left-center', // 'slide-left-center' | 'default'
+    widgetShowHandle: true,
 };
 
 // Exportar para uso en otros archivos
