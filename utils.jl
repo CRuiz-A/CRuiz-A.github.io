@@ -46,6 +46,29 @@ function hfun_turnstile_inline(params)
   """
 end
 
+# Toggle tag for enabling/disabling turnstile on a page: {{turnstile_enable}} / {{turnstile_disable}}
+# Toggle tag for enabling/disabling turnstile on a page: {{turnstile_enable}} / {{turnstile_disable}}
+function hfun_turnstile_enable(_)
+  setpagevar("turnstile_enabled", true)
+  return ""
+end
+
+function hfun_turnstile_disable(_)
+  setpagevar("turnstile_enabled", false)
+  return ""
+end
+
+# Toggle Giscus comments: {{giscus_enable}} / {{giscus_disable}}
+function hfun_giscus_enable(_)
+  setpagevar("giscus_enabled", true)
+  return ""
+end
+
+function hfun_giscus_disable(_)
+  setpagevar("giscus_enabled", false)
+  return ""
+end
+
 function hfun_m1fill(vname)
   var = vname[1]
   return pagevar("index", var)

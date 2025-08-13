@@ -334,6 +334,20 @@ h1 a:visited, h2 a:visited, h3 a:visited, h4 a:visited, h5 a:visited {
   white-space: nowrap;
 }
 
+/* Comments section width aligned with main content */
+.container .comments-section {
+  max-width: 43.75rem; /* match .franklin-content */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.comments-section iframe,
+.comments-section .giscus-frame,
+.comments-section .giscus {
+  width: 100% !important;
+}
+
 /* Staticman Comments Styling */
 #staticman-comments {
   margin-top: 2em;
