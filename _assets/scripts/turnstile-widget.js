@@ -67,6 +67,29 @@
             tocBox.appendChild(header);
             tocBox.appendChild(panel);
             toc.parentNode.insertBefore(tocBox, toc.nextSibling);
+        } else if (placement === 'right-fixed') {
+            console.log('[TurnstileWidget] right-fixed near TOC');
+            const fixedBox = document.createElement('div');
+            fixedBox.className = 'turnstile-right-fixed';
+            const h = document.createElement('div');
+            h.className = 'turnstile-toc-header';
+            const title = document.createElement('strong');
+            title.textContent = 'Verificación';
+            const toggle = document.createElement('button');
+            toggle.className = 'toggle';
+            toggle.type = 'button';
+            toggle.textContent = 'Abrir';
+            toggle.addEventListener('click', () => {
+                if (panel.classList.contains('open')) { closePanel(); toggle.textContent='Abrir'; }
+                else { openPanel(); toggle.textContent='Cerrar'; }
+            });
+            h.appendChild(title);
+            h.appendChild(toggle);
+            fixedBox.appendChild(h);
+            fixedBox.appendChild(panel);
+
+            document.body.appendChild(fixedBox);
+            openPanel(); // open by default in fixed mode
         } else {
             if (TURNSTILE_CONFIG.widgetShowHandle && styleKind === 'slide-left-center') {
                 const handle = document.createElement('div');
