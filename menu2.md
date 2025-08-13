@@ -88,9 +88,9 @@ function hfun_bar(vname)
 end
 ```
 
-~~~
-.hf {background-color:black;color:white;font-weight:bold;}
-~~~
+```css
+.hf { background-color: black; color: white; font-weight: bold; }
+```
 
 Can be called with `{{bar 4}}`: **{{bar 4}}**.
 
