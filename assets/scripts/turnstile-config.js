@@ -27,7 +27,7 @@ const TURNSTILE_CONFIG = {
     // Widget lateral
     widgetEnabled: true,
     widgetPosition: 'left', // 'left' | 'right'
-    widgetPlacement: 'floating', // 'floating' | 'toc'
+    widgetPlacement: 'right-fixed', // 'floating' | 'toc' | 'right-fixed'
     widgetAutoOpen: false,
     widgetOffsetY: 120, // px desde top
     widgetStyle: 'slide-left-center', // 'slide-left-center' | 'default'
