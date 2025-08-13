@@ -3,6 +3,7 @@
 class TurnstileHandler {
     constructor() {
         this.token = null;
+        this.captchaPassToken = null;
         this.widgetId = null;
         this.submitBtn = document.getElementById('submitBtn');
         this.messageContainer = document.getElementById('messageContainer');
@@ -41,6 +42,10 @@ class TurnstileHandler {
         this.submitBtn.disabled = false;
         this.showMessage('CAPTCHA verificado correctamente', 'success');
         console.log('Turnstile token generado:', token.substring(0, 20) + '...');
+        // Intercambiar automáticamente por captcha pass
+        this.exchangeForCaptchaPass().catch(() => {
+            this.showMessage('No se pudo obtener el pase de captcha. Intenta de nuevo.', 'error');
+        });
     }
 
     onError() {
@@ -61,11 +66,43 @@ class TurnstileHandler {
         return this.token;
     }
 
+    getCaptchaPassToken() {
+        return this.captchaPassToken || localStorage.getItem('captchaPassToken') || null;
+    }
+
+    async exchangeForCaptchaPass() {
+        if (!this.token) return null;
+        try {
+            const response = await fetch(TURNSTILE_CONFIG.apiEndpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify({ captchaToken: this.token, action: 'static_site', timestamp: Date.now() })
+            });
+            const result = await response.json();
+            if (response.ok && result.success && result.captchaPassToken) {
+                this.captchaPassToken = result.captchaPassToken;
+                localStorage.setItem('captchaPassToken', this.captchaPassToken);
+                this.showMessage('Pase de captcha obtenido', 'success');
+                return this.captchaPassToken;
+            } else {
+                this.captchaPassToken = null;
+                localStorage.removeItem('captchaPassToken');
+                throw new Error(result.message || 'Intercambio de captcha fallido');
+            }
+        } catch (e) {
+            console.error('Error intercambiando pase captcha:', e);
+            this.captchaPassToken = null;
+            localStorage.removeItem('captchaPassToken');
+            throw e;
+        }
+    }
+
     reset() {
         if (this.widgetId !== null && typeof turnstile !== 'undefined') {
             turnstile.reset(this.widgetId);
         }
         this.token = null;
+        this.captchaPassToken = null;
         this.submitBtn.disabled = true;
     }
 
@@ -102,3 +139,13 @@ function onTurnstileExpired() {
 document.addEventListener('DOMContentLoaded', function() {
     turnstileHandler = new TurnstileHandler();
 });
+
+// Helper reutilizable para llamadas a API con pase de captcha
+async function fetchWithCaptcha(input, init = {}) {
+    const captchaPassToken = turnstileHandler?.getCaptchaPassToken() || localStorage.getItem('captchaPassToken');
+    const headers = new Headers(init.headers || {});
+    if (captchaPassToken) {
+        headers.set('X-Captcha-Token', captchaPassToken);
+    }
+    return fetch(input, { ...init, headers });
+}
