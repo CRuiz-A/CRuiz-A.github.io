@@ -22,7 +22,13 @@ const TURNSTILE_CONFIG = {
     
     // Configuración de timeouts
     timeout: 30000, // 30 segundos
-    retryDelay: 3000 // 3 segundos
+    retryDelay: 3000, // 3 segundos
+
+    // Widget lateral
+    widgetEnabled: true,
+    widgetPosition: 'right', // 'left' | 'right'
+    widgetAutoOpen: false,
+    widgetOffsetY: 120, // px desde top
 };
 
 // Exportar para uso en otros archivos
