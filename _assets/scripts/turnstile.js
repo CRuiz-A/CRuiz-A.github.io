@@ -5,8 +5,8 @@ class TurnstileHandler {
         this.token = null;
         this.captchaPassToken = null;
         this.widgetId = null;
-        this.submitBtn = document.getElementById('submitBtn');
-        this.messageContainer = document.getElementById('messageContainer');
+        this.submitBtn = document.getElementById('submitBtn') || null;
+        this.messageContainer = document.getElementById('messageContainer') || null;
         
         this.init();
     }
@@ -39,7 +39,7 @@ class TurnstileHandler {
 
     onSuccess(token) {
         this.token = token;
-        this.submitBtn.disabled = false;
+        if (this.submitBtn) this.submitBtn.disabled = false;
         this.showMessage('CAPTCHA verificado correctamente', 'success');
         console.log('Turnstile token generado:', token.substring(0, 20) + '...');
         // Intercambiar automáticamente por captcha pass
@@ -50,14 +50,14 @@ class TurnstileHandler {
 
     onError() {
         this.token = null;
-        this.submitBtn.disabled = true;
+        if (this.submitBtn) this.submitBtn.disabled = true;
         this.showMessage('Error al cargar el CAPTCHA. Recarga la página.', 'error');
         console.error('Error en Turnstile');
     }
 
     onExpired() {
         this.token = null;
-        this.submitBtn.disabled = true;
+        if (this.submitBtn) this.submitBtn.disabled = true;
         this.showMessage('El CAPTCHA ha expirado. Complétalo nuevamente.', 'warning');
         console.warn('Token de Turnstile expirado');
     }
@@ -103,10 +103,14 @@ class TurnstileHandler {
         }
         this.token = null;
         this.captchaPassToken = null;
-        this.submitBtn.disabled = true;
+        if (this.submitBtn) this.submitBtn.disabled = true;
     }
 
     showMessage(message, type) {
+        if (!this.messageContainer) {
+            console[type === 'error' ? 'error' : 'log'](message);
+            return;
+        }
         this.messageContainer.innerHTML = `<div class="message ${type}">${message}</div>`;
         setTimeout(() => {
             this.messageContainer.innerHTML = '';
