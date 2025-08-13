@@ -25,7 +25,7 @@ const TURNSTILE_CONFIG = {
     retryDelay: 3000, // 3 segundos
 
     // Widget lateral
-    widgetEnabled: true,
+    widgetEnabled: false,
     widgetPosition: 'left', // 'left' | 'right'
     widgetPlacement: 'right-fixed', // 'floating' | 'toc' | 'right-fixed'
     widgetAutoOpen: false,

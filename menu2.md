@@ -17,7 +17,7 @@ turnstile_enabled = true
 
 ## Inline Turnstile demo
 
-{{turnstile_inline title="Verificación rápida" compact=true}}
+{{turnstile_inline title="" compact=true cta_text="Llamar Hello World" cta_endpoint="/" cta_mode="fetch" cta_method="GET"}}
 
 ## More markdown support
 

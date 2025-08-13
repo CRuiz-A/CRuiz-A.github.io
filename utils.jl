@@ -5,18 +5,44 @@ end
 
 # Inline Turnstile shortcode: {{turnstile_inline title="..." compact=true}}
 function hfun_turnstile_inline(params)
-  # params like ["title=Verificación", "compact=true"]
+  # params like ["title=Verificación", "compact=true", "cta_text=Probar API", "cta_endpoint=/", "cta_mode=fetch", "cta_method=GET"]
+  # defaults
   title = "Verificación rápida"
   compact = "false"
+  cta_text = "Probar API"
+  cta_endpoint = "/"
+  cta_mode = "fetch"  # fetch | redirect
+  cta_method = "GET"
+
   for p in params
-    if occursin("title=", p)
-      title = split(p, "=", limit=2)[2]
-    elseif occursin("compact=", p)
-      compact = split(p, "=", limit=2)[2]
+    if occursin("=", p)
+      parts = split(p, "=", limit=2)
+      key = parts[1]
+      val = parts[2]
+      if key == "title"
+        title = val
+      elseif key == "compact"
+        compact = val
+      elseif key == "cta_text"
+        cta_text = val
+      elseif key == "cta_endpoint"
+        cta_endpoint = val
+      elseif key == "cta_mode"
+        cta_mode = val
+      elseif key == "cta_method"
+        cta_method = val
+      end
     end
   end
+
   return """
-  <div class=\"ts-inline\" data-title=\"$title\" data-compact=\"$compact\"></div>
+  <div class=\"ts-inline\"
+       data-title=\"$title\"
+       data-compact=\"$compact\"
+       data-cta-text=\"$cta_text\"
+       data-cta-endpoint=\"$cta_endpoint\"
+       data-cta-mode=\"$cta_mode\"
+       data-cta-method=\"$cta_method\"></div>
   """
 end
 

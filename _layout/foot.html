@@ -62,6 +62,8 @@
     });
   });
 </script>
-{{insert turnstile.html}}
+{{if turnstile_enabled}}
+  {{insert turnstile.html}}
+{{end}}
 </body>
 </html>

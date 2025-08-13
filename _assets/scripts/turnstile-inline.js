@@ -4,15 +4,22 @@
 
 	function renderInline(host){
 		if (!window.TURNSTILE_CONFIG) { err('TURNSTILE_CONFIG missing'); return; }
-		const compact = String(host.dataset.compact || '').toLowerCase() === 'true';
-		const titleText = host.dataset.title || 'Verificación';
+    const compact = String(host.dataset.compact || '').toLowerCase() === 'true';
+    const titleText = host.dataset.title || '';
+    const ctaText = host.dataset.ctaText || 'Probar API';
+    const ctaEndpoint = host.dataset.ctaEndpoint || '/';
+    const ctaMode = (host.dataset.ctaMode || 'fetch').toLowerCase();
+    const ctaMethod = (host.dataset.ctaMethod || 'GET').toUpperCase();
 
 		const box = document.createElement('div');
 		box.className = 'ts-inline-box';
 
-		const header = document.createElement('div');
-		header.className = 'ts-inline-header';
-		header.textContent = titleText;
+    if (titleText) {
+        const header = document.createElement('div');
+        header.className = 'ts-inline-header';
+        header.textContent = titleText;
+        box.appendChild(header);
+    }
 
 		const widgetWrap = document.createElement('div');
 		widgetWrap.className = 'ts-inline-widget cf-turnstile-container';
@@ -25,21 +32,33 @@
 		status.className = 'ts-inline-status';
 		status.textContent = 'Completa el CAPTCHA para continuar';
 
-		box.appendChild(header);
-		box.appendChild(widgetWrap);
-		box.appendChild(status);
+    box.appendChild(widgetWrap);
+    box.appendChild(status);
+
+    // CTA button (disabled until pass)
+    const cta = document.createElement('button');
+    cta.type = 'button';
+    cta.className = 'btn btn-primary';
+    cta.textContent = ctaText;
+    cta.disabled = true;
+    cta.style.marginTop = '8px';
+    box.appendChild(cta);
 
 		host.innerHTML = '';
 		host.appendChild(box);
 
-		function onOk(){
-			status.textContent = 'Verificando…';
+    function onOk(){
+        status.textContent = '';
 			if (window.turnstileHandler) {
 				window.turnstileHandler.ensureCaptchaPass()
-					.then(()=>{ status.textContent = 'Acceso concedido'; })
+                .then(()=>{
+                    const pass = window.turnstileHandler.getCaptchaPassToken();
+                    if (pass) { try { localStorage.setItem('captchaPassToken', pass); } catch(_){} }
+                    cta.disabled = false;
+                })
 					.catch(()=>{ status.textContent = 'No se pudo validar. Intenta de nuevo.'; });
 			} else {
-				status.textContent = 'Validado';
+            cta.disabled = false;
 			}
 		}
 
@@ -62,6 +81,29 @@
 			'error-callback': onError,
 			'expired-callback': onExpired,
 		});
+
+    // CTA behavior
+    cta.addEventListener('click', async function(){
+        const base = TURNSTILE_CONFIG.apiBase || '';
+        const url = base.replace(/\/$/, '') + '/' + ctaEndpoint.replace(/^\//, '');
+        const token = (window.turnstileHandler && window.turnstileHandler.getCaptchaPassToken()) || localStorage.getItem('captchaPassToken');
+        if (ctaMode === 'redirect') {
+            const u = new URL(url);
+            if (token) u.searchParams.set('captcha', token);
+            window.location.href = u.toString();
+            return;
+        }
+        try {
+            const res = await fetch(url, {
+                method: ctaMethod,
+                headers: Object.assign({ 'Accept': 'application/json' }, token ? { 'X-Captcha-Token': token } : {}),
+            });
+            const txt = await res.text();
+            alert(`Status: ${res.status}\n\n${txt}`);
+        } catch (e) {
+            alert('Error llamando a la API: ' + e.message);
+        }
+    });
 	}
 
 	window.addEventListener('DOMContentLoaded', function(){
