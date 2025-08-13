@@ -123,3 +123,86 @@ b = a+<span class=hljs-number >1</span></code></pre> <p>you can specify the defa
     });
   });
 </script>
+
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<link rel=stylesheet  href="/assets/_css/turnstile-form.css">
+<link rel=stylesheet  href="/assets/_css/turnstile-widget.css">
+<script src="/assets/scripts/turnstile-config.js" defer></script>
+<script src="/assets/scripts/turnstile.js" defer></script>
+<script src="/assets/scripts/turnstile-widget.js" defer></script>
+<style>
+  .cf-turnstile {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+  }
+  .turnstile-container {
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    background: #f9f9f9;
+    margin: 20px 0;
+  }
+  .turnstile-form {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 30px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  .form-group {
+    margin-bottom: 20px;
+  }
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+  }
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  .submit-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+  }
+  .submit-btn:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+  }
+  .submit-btn:hover:not(:disabled) {
+    background-color: #0056b3;
+  }
+  .message {
+    padding: 10px;
+    border-radius: 4px;
+    margin: 10px 0;
+  }
+  .message.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+  }
+  .message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+  }
+  .message.info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+  }
+</style>
