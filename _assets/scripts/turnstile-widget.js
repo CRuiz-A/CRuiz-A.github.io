@@ -1,5 +1,13 @@
 (function(){
-	if (!window.TURNSTILE_CONFIG || !TURNSTILE_CONFIG.widgetEnabled) return;
+    console.log('[TurnstileWidget] bootstrap');
+    if (!window.TURNSTILE_CONFIG) {
+        console.warn('[TurnstileWidget] TURNSTILE_CONFIG not found');
+        return;
+    }
+    if (!TURNSTILE_CONFIG.widgetEnabled) {
+        console.log('[TurnstileWidget] widget disabled via config');
+        return;
+    }
 
 	function createEl(tag, attrs = {}, children = []) {
 		const el = document.createElement(tag);
@@ -10,7 +18,8 @@
 		return el;
 	}
 
-	function mountWidget() {
+    function mountWidget() {
+        console.log('[TurnstileWidget] mount');
 		const positionClass = TURNSTILE_CONFIG.widgetPosition === 'left' ? 'left' : '';
 		const offsetY = TURNSTILE_CONFIG.widgetOffsetY || 120;
 
@@ -27,8 +36,8 @@
 		panel.appendChild(createEl('div', { class: 'cf-turnstile' }));
 		panel.appendChild(createEl('div', { id: 'turnstileWidgetMsg' }));
 
-		function openPanel() { panel.classList.add('open'); renderTurnstile(); }
-		function closePanel() { panel.classList.remove('open'); }
+        function openPanel() { console.log('[TurnstileWidget] open'); panel.classList.add('open'); renderTurnstile(); }
+        function closePanel() { console.log('[TurnstileWidget] close'); panel.classList.remove('open'); }
 
 		fab.addEventListener('click', openPanel);
 		panel.querySelector('.turnstile-close').addEventListener('click', closePanel);
@@ -38,13 +47,17 @@
 
 		if (TURNSTILE_CONFIG.widgetAutoOpen) openPanel();
 
-		function renderTurnstile(){
-			if (typeof turnstile === 'undefined') return;
+        function renderTurnstile(){
+            if (typeof turnstile === 'undefined') {
+                console.warn('[TurnstileWidget] turnstile api not ready');
+                return;
+            }
 			const container = panel.querySelector('.cf-turnstile');
 			container.innerHTML='';
 			turnstile.render(container, {
 				sitekey: TURNSTILE_CONFIG.siteKey,
 				callback: async function(token){
+                    console.log('[TurnstileWidget] callback token received');
 					try{
 						if (window.turnstileHandler) {
 							// set token and trade for pass
@@ -72,7 +85,7 @@
 		}
 	}
 
-	function ensureAssets(){
+    function ensureAssets(){
 		if (!document.querySelector('link[href*="turnstile-widget.css"]')) {
 			const link = document.createElement('link');
 			link.rel='stylesheet';
@@ -81,7 +94,8 @@
 		}
 	}
 
-	window.addEventListener('DOMContentLoaded', function(){
+    window.addEventListener('DOMContentLoaded', function(){
+        console.log('[TurnstileWidget] DOMContentLoaded');
 		ensureAssets();
 		mountWidget();
 	});
