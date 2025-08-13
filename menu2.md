@@ -15,6 +15,10 @@ turnstile_enabled = true
 
 \toc
 
+## Inline Turnstile demo
+
+<div class="ts-inline" data-title="Verificación rápida" data-compact="true"></div>
+
 ## More markdown support
 
 The Julia Markdown parser in Julia's stdlib is not exactly complete and Franklin strives to bring useful extensions that are either defined in standard specs such as Common Mark or that just seem like useful extensions.
