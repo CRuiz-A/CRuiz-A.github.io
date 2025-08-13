@@ -32,11 +32,16 @@ class ContactForm {
         data.captchaToken = captchaToken; // Campo requerido por el backend
 
         try {
+            // Intentar asegurar que ya tengamos el pase
+            await turnstileHandler.exchangeForCaptchaPass().catch(() => {});
+            const captchaPassToken = turnstileHandler.getCaptchaPassToken();
+
             const response = await fetch(TURNSTILE_CONFIG.apiEndpoint, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json'
+                    'Accept': 'application/json',
+                    ...(captchaPassToken ? { 'x-captcha-token': captchaPassToken } : {})
                 },
                 body: JSON.stringify(data)
             });

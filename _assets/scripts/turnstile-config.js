@@ -10,7 +10,7 @@ const TURNSTILE_CONFIG = {
     // Detecta automáticamente entre desarrollo y producción
     apiEndpoint: window.location.hostname === 'localhost' 
         ? 'http://localhost:3001/api/validate-captcha'
-        : 'https://api-cruiz.vercel.app/validate-captcha',
+        : 'https://api-cruiz.vercel.app/api/validate-captcha',
     
     // Configuraciones adicionales
     theme: 'auto', // 'light', 'dark', 'auto'
