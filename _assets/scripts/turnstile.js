@@ -70,8 +70,54 @@ class TurnstileHandler {
         return this.captchaPassToken || localStorage.getItem('captchaPassToken') || null;
     }
 
+    async ensureCaptchaPass(maxWaitMs = (window.TURNSTILE_CONFIG?.timeout || 30000)) {
+        // If we already have a pass, return it
+        const existing = this.getCaptchaPassToken();
+        if (existing) return existing;
+
+        const start = Date.now();
+        let exchanged = false;
+        while (Date.now() - start < maxWaitMs) {
+            // Try to read token from widget if not set yet
+            if (!this.token && typeof turnstile !== 'undefined' && this.widgetId !== null) {
+                try {
+                    const resp = turnstile.getResponse(this.widgetId);
+                    if (resp) {
+                        this.token = resp;
+                    }
+                } catch (_) {}
+            }
+
+            if (this.token && !exchanged) {
+                try {
+                    await this.exchangeForCaptchaPass();
+                    const pass = this.getCaptchaPassToken();
+                    if (pass) return pass;
+                    exchanged = true; // avoid hammering
+                } catch (_) {
+                    // will retry until timeout
+                }
+            }
+
+            await new Promise(r => setTimeout(r, 200));
+            const pass = this.getCaptchaPassToken();
+            if (pass) return pass;
+        }
+        throw new Error('Completa el CAPTCHA para continuar');
+    }
+
     async exchangeForCaptchaPass() {
-        if (!this.token) return null;
+        if (!this.token) {
+            if (typeof turnstile !== 'undefined' && this.widgetId !== null) {
+                try {
+                    const resp = turnstile.getResponse(this.widgetId);
+                    if (resp) {
+                        this.token = resp;
+                    }
+                } catch (_) {}
+            }
+            if (!this.token) return null;
+        }
         try {
             const response = await fetch(TURNSTILE_CONFIG.apiEndpoint, {
                 method: 'POST',
@@ -146,6 +192,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Helper reutilizable para llamadas a API con pase de captcha
 async function fetchWithCaptcha(input, init = {}) {
+    if (window.turnstileHandler) {
+        try { await window.turnstileHandler.ensureCaptchaPass(); } catch (_) {}
+    }
     const captchaPassToken = turnstileHandler?.getCaptchaPassToken() || localStorage.getItem('captchaPassToken');
     const headers = new Headers(init.headers || {});
     if (captchaPassToken) {
