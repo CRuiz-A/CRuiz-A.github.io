@@ -20,14 +20,16 @@
 
     function mountWidget() {
         console.log('[TurnstileWidget] mount');
-		const positionClass = TURNSTILE_CONFIG.widgetPosition === 'left' ? 'left' : '';
-		const offsetY = TURNSTILE_CONFIG.widgetOffsetY || 120;
+        const positionClass = TURNSTILE_CONFIG.widgetPosition === 'left' ? 'left' : '';
+        const offsetY = TURNSTILE_CONFIG.widgetOffsetY || 120;
+        const styleKind = TURNSTILE_CONFIG.widgetStyle || 'default';
 
 		const fab = createEl('button', { class: `turnstile-fab ${positionClass}`, type: 'button' }, [
 			createEl('span', {}, ['Verificar acceso'])
 		]);
 
-		const panel = createEl('div', { class: `turnstile-panel ${positionClass}` });
+        const extra = styleKind === 'slide-left-center' ? 'slide-left-center' : '';
+        const panel = createEl('div', { class: `turnstile-panel ${positionClass} ${extra}` });
 		panel.style.setProperty('--ts-offset-y', offsetY + 'px');
 		panel.appendChild(createEl('div', { class: 'turnstile-panel-header' }, [
 			createEl('strong', {}, ['¿Eres humano?']),
@@ -66,7 +68,16 @@
             tocBox.appendChild(panel);
             toc.parentNode.insertBefore(tocBox, toc.nextSibling);
         } else {
-            document.body.appendChild(fab);
+            if (TURNSTILE_CONFIG.widgetShowHandle && styleKind === 'slide-left-center') {
+                const handle = document.createElement('div');
+                handle.className = 'turnstile-handle';
+                handle.title = 'Verificar acceso';
+                handle.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shield"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>';
+                handle.addEventListener('click', openPanel);
+                document.body.appendChild(handle);
+            } else {
+                document.body.appendChild(fab);
+            }
             document.body.appendChild(panel);
         }
 
