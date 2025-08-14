@@ -1,0 +1,315 @@
+<!doctype html> <html lang=en > <meta charset=UTF-8 > <meta name=viewport  content="width=device-width, initial-scale=1"> <meta http-equiv=Permissions-Policy  content="autoplay=*, cross-origin-isolated=*"> <!-- bootstrap@5.3.1 and bootstrap icon@1.10--> <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel=stylesheet  integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin=anonymous > <link rel=stylesheet  href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"> <link rel=stylesheet  href="/css/style.css"> <link rel=stylesheet  href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"> <link data-n-head=ssr  rel=stylesheet  href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons"> <link rel=stylesheet  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin=anonymous  referrerpolicy=no-referrer  /> <link rel=stylesheet  href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin=anonymous  referrerpolicy=no-referrer  /> <!-- favicon generated through https://realfavicongenerator.net/--> <link rel=icon  href="/assets/l_arrow.svg" type="image/svg+xml"> <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"> <link rel=apple-touch-icon  sizes=180x180  href="/assets/icon/apple-touch-icon.png"> <link rel=icon  type="image/png" sizes=32x32  href="/assets/icon/favicon-32x32.png"> <link rel=icon  type="image/png" sizes=16x16  href="/assets/icon/favicon-16x16.png"> <link rel=manifest  href="/assets/icon/site.webmanifest"> <link rel=mask-icon  href="/assets/icon/safari-pinned-tab.svg" color="#5bbad5"> <meta name=msapplication-TileColor  content="#da532c"> <meta name=theme-color  content="#ffffff"> <title>🛡️ Test de Turnstile - Franklin.jl — CRuiz Page</title> <header data-bs-theme=dark > <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark"> <div class=container-fluid > <a href="/" class=navbar-brand > <div class=container-fluid > <div class="row align-items-center"> <div class=col-auto > <img src="/assets/l_arrow.svg" alt="Left Arrow Logo" height=32  style="transform: rotate(90deg);"> </div> <div class="col text-center"> <img src="/assets/m_logo.svg" alt="Site Logo" height=35  class=m-logo-dark-invert > </div> <div class="col-auto text-end"> <img src="/assets/r_star.svg" alt="Right Star Logo" height=32 > </div> </div> </div> </a> <button class=navbar-toggler  type=button  data-bs-toggle=collapse  data-bs-target="#navbarCollapse" aria-controls=navbarCollapse  aria-expanded=false  aria-label="Toggle navigation"> <span class=navbar-toggler-icon ></span> </button> <div class="collapse navbar-collapse" id=navbarCollapse > <ul class="navbar-nav me-auto mb-2 mb-md-0 nav-text-invert"> <li class=nav-item > <a class=nav-link  aria-current=page  href="/">Home</a> <li class=nav-item > <a class=nav-link  href="/franklin/">Franklin</a> <li class=nav-item > <a class=nav-link  href="/menu1/">Code blocks</a> <li class=nav-item > <a class=nav-link  href="/menu2/">More Goodies</a> <li class=nav-item > <a class=nav-link  href="/menu3/">Tags</a> </ul> <!-- <form class=d-flex  role=search > <input class="form-control me-2" type=search  placeholder=Search  aria-label=Search > <button class="btn btn-outline-success" type=submit >Search</button> </form> --> </div> </div> </nav> </header> <script> document.addEventListener("DOMContentLoaded", function () { const tocLinks = document.querySelectorAll(".franklin-toc a[href^='#']"); const sections = Array.from(tocLinks).map(link => { const id = link.getAttribute("href").slice(1); return document.getElementById(id); }).filter(el => el !== null); function onScroll() { const scrollPos = window.scrollY + 120; // Adjust offset to match TOC position let currentSection = null; for (const section of sections) { if (section.offsetTop <= scrollPos) { currentSection = section; } } tocLinks.forEach(link => { link.classList.remove("active"); }); if (currentSection) { const activeLink = document.querySelector( `.franklin-toc a[href="#${currentSection.id}"]` ); if (activeLink) { activeLink.classList.add("active"); } } } window.addEventListener("scroll", onScroll); onScroll(); // Run on load too // Fallback: if page didn't define a 'title' in front matter, derive from first h1 try { var hasExplicitTitle = document.querySelector('head title') && document.querySelector('head title').textContent.indexOf('—') > -1; if (!hasExplicitTitle) { var h1 = document.querySelector('.franklin-content h1'); var site = '{{fill website_title}}'; if (h1 && h1.textContent) { document.title = h1.textContent.trim() + ' — ' + site; } } } catch (e) {} }); </script> <div class=franklin-content > <h1 id="test_de_integración_turnstile_con_franklinjl"><a href="#test_de_integración_turnstile_con_franklinjl" class=header-anchor >🧪 Test de Integración Turnstile con Franklin.jl</a></h1> <p>Esta página demuestra la integración completa de Cloudflare Turnstile con Franklin.jl y la API de Nest.js.</p> <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script> <link rel=stylesheet  href="/assets/_css/turnstile-form.css"> <link rel=stylesheet  href="/assets/_css/turnstile-widget.css"> <script src="/assets/scripts/turnstile-config.js" defer></script> <script src="/assets/scripts/turnstile.js" defer></script> <script src="/assets/scripts/turnstile-widget.js" defer></script> <script src="/assets/scripts/turnstile-inline.js" defer></script> <style> .cf-turnstile { margin: 20px 0; display: flex; justify-content: center; } .turnstile-container { border: 1px solid #ddd; padding: 20px; border-radius: 8px; background: #f9f9f9; margin: 20px 0; } .turnstile-form { max-width: 500px; margin: 0 auto; padding: 30px; background: white; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); } .form-group { margin-bottom: 20px; } .form-group label { display: block; margin-bottom: 5px; font-weight: bold; color: #333; } .form-group input, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; } .submit-btn { background-color: #007bff; color: white; padding: 12px 30px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; width: 100%; } .submit-btn:disabled { background-color: #6c757d; cursor: not-allowed; } .submit-btn:hover:not(:disabled) { background-color: #0056b3; } .message { padding: 10px; border-radius: 4px; margin: 10px 0; } .message.success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; } .message.error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; } .message.info { background-color: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; } </style> <div class=turnstile-form > <h2>📝 Formulario de Prueba</h2> <p><strong>Objetivo:</strong> Verificar que la integración Turnstile funciona correctamente entre Franklin.jl y la API de Nest.js.</p> <form id=franklin-turnstile-form > <div class=form-group > <label for=test-name >Nombre:</label> <input type=text  id=test-name  name=name  placeholder="Tu nombre" required> </div> <div class=form-group > <label for=test-email >Email:</label> <input type=email  id=test-email  name=email  placeholder="tu@email.com" required> </div> <div class=form-group > <label for=test-message >Mensaje:</label> <textarea id=test-message  name=message  rows=4  placeholder="Tu mensaje de prueba" required></textarea>
+    </div>
+    
+    <div class=turnstile-container >
+      <h3>🔒 Verificación de Seguridad</h3>
+      <div class=cf-turnstile  
+           data-sitekey=0x4AAAAAABnyQIvR42qq5_Ed 
+           data-callback=onFranklinTurnstileSuccess 
+           data-expired-callback=onFranklinTurnstileExpired 
+           data-error-callback=onFranklinTurnstileError ></div>
+    </div>
+    
+    <div id=franklin-message-container ></div>
+    
+    <button type=submit  class=submit-btn  id=franklin-submit-btn  disabled>
+      📤 Enviar Formulario
+    </button>
+  </form>
+</div>
+
+<div class=turnstile-form  style="margin-top: 30px;">
+  <h2>🔍 Información de Debug</h2>
+  <div id=debug-info >
+    <p><strong>Site Key:</strong> 0x4AAAAAABnyQIvR42qq5_Ed</p>
+    <p><strong>Estado Turnstile:</strong> <span id=turnstile-status >Cargando...</span></p>
+    <p><strong>API Endpoint:</strong> <span id=api-endpoint >Detectando...</span></p>
+  </div>
+</div>
+
+<script>
+// Variables globales para Franklin.jl + Turnstile
+let franklinTurnstileToken = null;
+const franklinSubmitBtn = document.getElementById('franklin-submit-btn');
+const franklinMessageContainer = document.getElementById('franklin-message-container');
+
+// Detectar entorno y configurar API URL
+const apiUrl = window.location.hostname === 'localhost' 
+  ? 'http://localhost:3001/api/validate-captcha'
+  : 'https://api-cruiz.vercel.app/validate-captcha';
+
+// Actualizar información de debug
+document.getElementById('api-endpoint').textContent = apiUrl;
+
+// Callbacks de Turnstile para Franklin.jl
+function onFranklinTurnstileSuccess(token) {
+  console.log('✅ Franklin.jl - Turnstile completado exitosamente');
+  franklinTurnstileToken = token;
+  franklinSubmitBtn.disabled = false;
+  document.getElementById('turnstile-status').textContent = '✅ Verificado';
+  showFranklinMessage('CAPTCHA completado. Puedes enviar el formulario.', 'success');
+}
+
+function onFranklinTurnstileExpired() {
+  console.log('⏰ Franklin.jl - Turnstile expirado');
+  franklinTurnstileToken = null;
+  franklinSubmitBtn.disabled = true;
+  document.getElementById('turnstile-status').textContent = '⏰ Expirado';
+  showFranklinMessage('CAPTCHA expirado. Por favor, completa el CAPTCHA nuevamente.', 'error');
+}
+
+function onFranklinTurnstileError() {
+  console.log('❌ Franklin.jl - Error en Turnstile');
+  franklinTurnstileToken = null;
+  franklinSubmitBtn.disabled = true;
+  document.getElementById('turnstile-status').textContent = '❌ Error';
+  showFranklinMessage('Error en el CAPTCHA. Por favor, recarga la página.', 'error');
+}
+
+// Función para mostrar mensajes
+function showFranklinMessage(message, type) {
+  franklinMessageContainer.innerHTML = `<div class="message ${type}">${message}</div>`;
+}
+
+// Manejar el envío del formulario
+document.getElementById('franklin-turnstile-form').addEventListener('submit', async function (e) {
+  e.preventDefault();
+  
+  if (!franklinTurnstileToken) {
+    showFranklinMessage('❌ Por favor, completa el CAPTCHA antes de enviar.', 'error');
+    return;
+  }
+
+  showFranklinMessage('🔄 Enviando formulario...', 'info');
+  franklinSubmitBtn.disabled = true;
+
+  // Recopilar datos del formulario
+  const formData = {
+    captchaToken: franklinTurnstileToken,
+    name: document.getElementById('test-name').value,
+    email: document.getElementById('test-email').value,
+    message: document.getElementById('test-message').value,
+    action: 'franklin_form_submit',
+    timestamp: Date.now(),
+    source: 'franklin.jl'
+  };
+
+  console.log('📤 Franklin.jl - Enviando datos:', formData);
+
+  try {
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData)
+    });
+
+    console.log('📥 Franklin.jl - Respuesta del servidor:', response.status);
+    const result = await response.json();
+    console.log('📄 Franklin.jl - Datos de respuesta:', result);
+
+    if (response.ok && result.success) {
+      showFranklinMessage(`✅ <strong>Éxito!</strong> ${result.message}`, 'success');
+      // Limpiar formulario
+      document.getElementById('franklin-turnstile-form').reset();
+      franklinTurnstileToken = null;
+      // Resetear Turnstile
+      if (typeof turnstile !== 'undefined') {
+        turnstile.reset();
+      }
+    } else {
+      showFranklinMessage(`⚠️ <strong>Error de validación:</strong> ${result.message || 'Error desconocido'}`, 'error');
+    }
+  } catch (error) {
+    console.error('💥 Franklin.jl - Error de red:', error);
+    showFranklinMessage(`❌ <strong>Error de conexión:</strong> ${error.message}`, 'error');
+  } finally {
+    franklinSubmitBtn.disabled = false;
+  }
+});
+
+// Inicialización
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('🚀 Franklin.jl - Página de prueba Turnstile cargada');
+  document.getElementById('turnstile-status').textContent = '⏳ Esperando verificación';
+});
+</script>
+
+<h2 id="información_de_la_integración"><a href="#información_de_la_integración" class=header-anchor >📋 Información de la Integración</a></h2>
+<h3 id=componentes_implementados ><a href="#componentes_implementados" class=header-anchor >✅ Componentes Implementados</a></h3>
+<ul>
+<li><p><strong>Franklin.jl</strong>: Generador de sitios estáticos en Julia</p>
+
+<li><p><strong>Cloudflare Turnstile</strong>: Sistema de CAPTCHA inteligente</p>
+
+<li><p><strong>Nest.js API</strong>: Validación del lado servidor</p>
+
+<li><p><strong>Site Key</strong>: <code>&#123;&#123;turnstile_site_key&#125;&#125;</code></p>
+
+</ul>
+<h3 id="características_de_la_prueba"><a href="#características_de_la_prueba" class=header-anchor >🔧 Características de la Prueba</a></h3>
+<ol>
+<li><p><strong>Detección automática de entorno</strong> &#40;desarrollo vs producción&#41;</p>
+
+<li><p><strong>Validación del lado cliente</strong> antes del envío</p>
+
+<li><p><strong>Validación del lado servidor</strong> con la API de Nest.js</p>
+
+<li><p><strong>Manejo completo de errores</strong> y estados</p>
+
+<li><p><strong>Logging detallado</strong> para debugging</p>
+
+<li><p><strong>Reseteo automático</strong> del formulario tras éxito</p>
+
+</ol>
+<h3 id=urls_de_la_api ><a href="#urls_de_la_api" class=header-anchor >🚀 URLs de la API</a></h3>
+<ul>
+<li><p><strong>Desarrollo</strong>: <code>http://localhost:3001/api/validate-captcha</code></p>
+
+<li><p><strong>Producción</strong>: <code>https://api-cruiz.vercel.app/validate-captcha</code></p>
+
+</ul>
+<h3 id="cómo_probar"><a href="#cómo_probar" class=header-anchor >🧪 Cómo Probar</a></h3>
+<ol>
+<li><p>Completa los campos del formulario</p>
+
+<li><p>Resuelve el CAPTCHA de Turnstile</p>
+
+<li><p>Envía el formulario</p>
+
+<li><p>Verifica la respuesta de la API</p>
+
+<li><p>Revisa la consola del navegador para logs detallados </p>
+
+</ol>
+<div class=page-foot >
+    <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Cruiz. Last modified: August 14, 2025.
+    Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
+</div>
+</div>    </div> 
+</div> 
+
+
+
+<footer class=container >
+  <p class=float-end >
+    <a href="#" class="btn btn-outline-secondary" title="Back to top">
+      <img src="/assets/l_arrow.svg" alt="Back to top" style="width: 20px; height: 20px;">
+    </a>
+  </p>  
+  <div class=footer-icons >
+      <ul class=social-icons >
+          <li><strong>Follow:</strong>
+          <li><a href="https://twitter.com/gisp_shin" rel="nofollow noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" width=16  height=16  fill=currentColor  class="bi bi-twitter" viewBox="0 0 16 16">
+              <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"/>
+          </svg> X (Twitter)</a>
+          <li><a href="https://github.com/otwn" rel="nofollow noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" width=16  height=16  fill=currentColor  class="bi bi-github" viewBox="0 0 16 16">
+              <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+            </svg> GitHub</a>
+      </ul>
+  </div>
+  <p class=copyright >&copy; 2023- Company, Inc. · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity=sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm  crossorigin=anonymous ></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var images = document.querySelectorAll('img');
+    images.forEach(function(img) {
+      img.onerror = function() {
+        this.onerror = null;
+        this.src = '/assets/images/placeholder.svg';
+      };
+    });
+  });
+</script>
+
+  
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<link rel=stylesheet  href="/assets/_css/turnstile-form.css">
+<link rel=stylesheet  href="/assets/_css/turnstile-widget.css">
+<script src="/assets/scripts/turnstile-config.js" defer></script>
+<script src="/assets/scripts/turnstile.js" defer></script>
+<script src="/assets/scripts/turnstile-widget.js" defer></script>
+<script src="/assets/scripts/turnstile-inline.js" defer></script>
+<style>
+  .cf-turnstile {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+  }
+  .turnstile-container {
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    background: #f9f9f9;
+    margin: 20px 0;
+  }
+  .turnstile-form {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 30px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  .form-group {
+    margin-bottom: 20px;
+  }
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+  }
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  .submit-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+  }
+  .submit-btn:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+  }
+  .submit-btn:hover:not(:disabled) {
+    background-color: #0056b3;
+  }
+  .message {
+    padding: 10px;
+    border-radius: 4px;
+    margin: 10px 0;
+  }
+  .message.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+  }
+  .message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+  }
+  .message.info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+  }
+</style>
