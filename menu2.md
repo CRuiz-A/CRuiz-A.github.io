@@ -9,6 +9,8 @@ tags = ["syntax", "code", "image"]
 
 # Enable turnstile widget for this page
 turnstile_enabled = true
+# Enable giscus comments for this page
+giscus_enabled = true
 +++
 
 # More goodies

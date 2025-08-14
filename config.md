@@ -23,6 +23,9 @@ toc = true
 # Configuración de Turnstile
 turnstile_enabled = true
 turnstile_site_key = "0x4AAAAAABnyQIvR42qq5_Ed"
+
+# Comentarios (Giscus)
+giscus_enabled = false
 +++
 
 <!--

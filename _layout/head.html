@@ -6,7 +6,8 @@
   {{if hasmath}} {{insert head_katex.html }}     {{end}}
   {{if hascode}} {{insert head_highlight.html }}   {{end}}
   {{insert style.html}}
-  {{isdef title}} <title>{{fill title}}</title>  {{end}}
+  {{isdef title}} <title>{{fill title}} — {{fill website_title}}</title>  {{end}}
+  {{isnotdef title}} <title>{{fill website_title}}</title> {{end}}
 </head>
 <body>
   {{insert nav.html}}
@@ -45,6 +46,18 @@
   
     window.addEventListener("scroll", onScroll);
     onScroll(); // Run on load too
+
+    // Fallback: if page didn't define a 'title' in front matter, derive from first h1
+    try {
+      var hasExplicitTitle = document.querySelector('head title') && document.querySelector('head title').textContent.indexOf('—') > -1;
+      if (!hasExplicitTitle) {
+        var h1 = document.querySelector('.franklin-content h1');
+        var site = '{{fill website_title}}';
+        if (h1 && h1.textContent) {
+          document.title = h1.textContent.trim() + ' — ' + site;
+        }
+      }
+    } catch (e) {}
   });
   
   </script>
